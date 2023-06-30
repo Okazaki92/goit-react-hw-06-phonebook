@@ -22,7 +22,6 @@ export const ContactList = () => {
     return dispatch(deleteContact(id));
   };
   const contacts = getFilteredContacts();
-  console.log(contacts);
 
   return (
     <ul className={styles.list}>

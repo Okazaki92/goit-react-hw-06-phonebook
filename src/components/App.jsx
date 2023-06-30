@@ -14,11 +14,11 @@ export const App = () => {
     dispatch(getContactsFromLocalStorage());
   }, [dispatch]);
 
-  useEffect(() => {
-    if ((prev) => prev !== contacts) {
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   if ((prev) => prev !== contacts) {
+  //     dispatch()
+  //   }
+  // }, [contacts]);
 
   return (
     <div className="container">

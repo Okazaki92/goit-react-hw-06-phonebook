@@ -23,6 +23,10 @@ export const contactsSlice = createSlice({
     findContact(state, action) {
       state.filter = action.payload;
     },
+    storeContactToLocalStorage: (state, action) => {
+      state.list = action.payload;
+      localStorage.setItem("contacts", JSON.stringify(action.payload));
+    },
     getContactsFromLocalStorage: (state) => {
       const storedContacts = localStorage.getItem("contacts");
       if (storedContacts) {
@@ -37,6 +41,7 @@ export const {
   deleteContact,
   findContact,
   getContactsFromLocalStorage,
+  storeContactToLocalStorage,
 } = contactsSlice.actions;
 
 export const contactReducer = contactsSlice.reducer;

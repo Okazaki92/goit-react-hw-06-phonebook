@@ -4,21 +4,17 @@ import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getContactsFromLocalStorage } from "../redux/contactsSlice";
+import { storeContactsToLocalStorage } from "../redux/contactsSlice";
 
 export const App = () => {
   const contacts = useSelector((state) => state.contacts.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getContactsFromLocalStorage());
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   if ((prev) => prev !== contacts) {
-  //     dispatch()
-  //   }
-  // }, [contacts]);
+    if ((prev) => prev !== contacts) {
+      dispatch(storeContactsToLocalStorage());
+    }
+  }, [dispatch, contacts]);
 
   return (
     <div className="container">

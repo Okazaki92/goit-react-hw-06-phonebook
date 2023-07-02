@@ -5,9 +5,11 @@ import { Filter } from "./Filter/Filter";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { storeContactsToLocalStorage } from "../redux/contactsSlice";
+import { selectContactsList } from "../redux/selectors";
 
 export const App = () => {
-  const contacts = useSelector((state) => state.contacts.list);
+  const contacts = useSelector(selectContactsList);
+  console.log(contacts.length);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,10 +25,12 @@ export const App = () => {
       {!contacts.length ? (
         <div className="noContacts">NO CONTACTS IN BOOK</div>
       ) : (
-        <Filter />
+        <div className="container">
+          <Filter />
+          <h2>Contacts</h2>
+          {<ContactList />}
+        </div>
       )}
-      <h2>Contacts</h2>
-      <ContactList />
     </div>
   );
 };

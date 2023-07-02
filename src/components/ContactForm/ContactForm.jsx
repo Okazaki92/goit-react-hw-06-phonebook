@@ -5,12 +5,13 @@ import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ContactForm.module.css";
 import { addContact } from "../../redux/contactsSlice";
+import { selectContactsList } from "../../redux/selectors";
 
 export const ContactForm = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.list);
+  const contacts = useSelector(selectContactsList);
 
   const handleNameChange = (e) => {
     setName(e.target.value);

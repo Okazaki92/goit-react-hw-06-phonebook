@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 let storageList =
-  localStorage.getItem("contacts") !== undefined
+  localStorage.getItem("contacts") !== null
     ? JSON.parse(localStorage.getItem("contacts"))
     : [];
 export const contactsSlice = createSlice({
   name: "contacts",
   initialState: {
     list: storageList,
-    filter: "",
   },
   reducers: {
     addContact(state, action) {
@@ -18,20 +17,13 @@ export const contactsSlice = createSlice({
         (contact) => contact.id !== action.payload
       );
     },
-    findContact(state, action) {
-      state.filter = action.payload;
-    },
     storeContactsToLocalStorage: (state, action) => {
       localStorage.setItem("contacts", JSON.stringify(state.list));
     },
   },
 });
 
-export const {
-  addContact,
-  deleteContact,
-  findContact,
-  storeContactsToLocalStorage,
-} = contactsSlice.actions;
+export const { addContact, deleteContact, storeContactsToLocalStorage } =
+  contactsSlice.actions;
 
 export const contactReducer = contactsSlice.reducer;

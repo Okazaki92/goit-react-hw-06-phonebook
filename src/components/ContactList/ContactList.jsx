@@ -2,17 +2,18 @@ import propTypes from "prop-types";
 import styles from "./ConstactList.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../../redux/contactsSlice";
+import { selectContactsList, selectFilter } from "../../redux/selectors";
 
 export const ContactList = () => {
-  const list = useSelector((state) => state.contacts.list);
-  const filter = useSelector((state) => state.contacts.filter);
+  const list = useSelector(selectContactsList);
+  const filter = useSelector(selectFilter);
   const getFilteredContacts = () => {
     if (!filter) {
       return list;
     }
 
     return list.filter((contact) =>
-      contact.name.toLowerCase().includes(filter)
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
@@ -22,23 +23,29 @@ export const ContactList = () => {
     return dispatch(deleteContact(id));
   };
   const contacts = getFilteredContacts();
-
+  console.log(contacts);
   return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li className={styles.list_item} key={id}>
-          <p className="list_text">{name}</p>
-          <p className="list_text">{number}</p>
-          <button
-            className={styles.list_button}
-            type="submit"
-            onClick={() => removeContact(id)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div>
+      {!contacts.length ? (
+        <div className="noContacts">Sorry no contact with this search!</div>
+      ) : (
+        <ul className={styles.list}>
+          {contacts.map(({ id, name, number }) => (
+            <li className={styles.list_item} key={id}>
+              <p className="list_text">{name}</p>
+              <p className="list_text">{number}</p>
+              <button
+                className={styles.list_button}
+                type="submit"
+                onClick={() => removeContact(id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 ContactList.propTypes = {
